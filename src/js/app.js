@@ -1,11 +1,15 @@
 export default class Character {
   constructor(name, type) {
-    if (typeof name === 'string' && name.length > 1 && name.length < 11
-      && typeof type === 'string' && (type === 'Bowman' || type === 'Swordsman' || type === 'Magician' || type === 'Daemon' || type === 'Undead' || type === 'Zombie')) {
-      this.name = name;
-      this.type = type;
+    const types = ['Bowman', 'Swordsman', 'Magician', 'Daemon', 'Undead', 'Zombie'];
+    if (typeof name !== 'string' || name.length < 2 || name.length > 10) {
+      throw new Error('Ошибка в name');
     } else {
-      throw new Error('...');
+      this.name = name;
+    }
+    if (!types.includes(type)) {
+      throw new Error('Ошибка в type');
+    } else {
+      this.type = type;
     }
     this.health = 100;
     this.level = 1;
@@ -18,7 +22,7 @@ export default class Character {
       this.attack += 0.2 * this.attack;
       this.defence += 0.2 * this.defence;
     } else {
-      throw new Error('...');
+      throw new Error('Персонаж мертв');
     }
   }
 

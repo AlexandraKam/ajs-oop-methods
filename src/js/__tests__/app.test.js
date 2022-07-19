@@ -1,32 +1,16 @@
 import Character from '../app';
 
-test('should error', () => {
-  expect(() => new Character()).toThrow('...');
+test('Ошибка в name', () => {
+  expect(() => new Character()).toThrow('Ошибка в name');
 });
-
-test('should name, type', () => {
-  const characterNew = new Character('Иван', 'Bowman');
-  const characterSwordsman = new Character('Иван', 'Swordsman');
-  const characterMagician = new Character('Иван', 'Magician');
-  const characterDaemon = new Character('Иван', 'Daemon');
-  const characterUndead = new Character('Иван', 'Undead');
-  const characterZombie = new Character('Иван', 'Zombie');
-  expect(characterNew.name).toBe('Иван');
-  expect(typeof characterNew.name).toBe('string');
-  expect(characterNew.name.length).toBe(4);
-  expect(characterNew.type).toBe('Bowman');
-  expect(typeof characterNew.type).toBe('string');
-  expect(characterSwordsman.type).toBe('Swordsman');
-  expect(characterMagician.type).toBe('Magician');
-  expect(characterDaemon.type).toBe('Daemon');
-  expect(characterUndead.type).toBe('Undead');
-  expect(characterZombie.type).toBe('Zombie');
+test('Ошибка в type', () => {
+  expect(() => new Character('Name', 'Magician1')).toThrow('Ошибка в type');
 });
 
 test('should error for levelUp', () => {
   const characterError = new Character('Иван', 'Bowman');
   characterError.damage(110);
-  expect(() => characterError.levelUp()).toThrow('...');
+  expect(() => characterError.levelUp()).toThrow('Персонаж мертв');
 });
 
 test('should level 2, health 100, attack 30, defence 30', () => {
@@ -34,10 +18,15 @@ test('should level 2, health 100, attack 30, defence 30', () => {
   characterLevel.attack = 25;
   characterLevel.defence = 25;
   characterLevel.levelUp();
-  expect(characterLevel.level).toBe(2);
-  expect(characterLevel.health).toBe(100);
-  expect(characterLevel.attack).toBe(30);
-  expect(characterLevel.defence).toBe(30);
+  const expected = {
+    name: 'Иван',
+    type: 'Bowman',
+    health: 100,
+    level: 2,
+    attack: 30,
+    defence: 30,
+  };
+  expect(characterLevel).toEqual(expected);
 });
 
 test('should health 0', () => {
